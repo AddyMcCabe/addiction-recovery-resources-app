@@ -1,5 +1,4 @@
 from flask_sqlalchemy import SQLAlchemy
-from flask import Flask, render_template, url_for, redirect
 import os
 
 
@@ -15,13 +14,19 @@ class User(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
-    password = db.Column(db.String(100))
+    password = db.Column(db.String(500))
 
     def __init__(self, name):
         self.name = name
 
 
+class Info(db.Model):
 
+    __tablename__ = 'information'
+
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100))
+    link = db.Column(db.String(500))
 
 
 

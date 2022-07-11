@@ -1,6 +1,6 @@
 from jinja2 import StrictUndefined
 
-from flask import Flask, render_template, url_for, redirect
+from flask import Flask, render_template, url_for, redirect, request
 from flask_debugtoolbar import DebugToolbarExtension
 
 from model import connect_to_db, db
@@ -19,9 +19,18 @@ app.jinja_env.undefined = StrictUndefined
 #############  VIEW FUNCTIONS -- HAVE FORMS  ########################
 #####################################################################
 
+
 @app.route('/')
 def home():
     return render_template('home.html')
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+@app.route('/register')
+def register():
+    return render_template('register.html')
 
 @app.route('/info')
 def list_info():
