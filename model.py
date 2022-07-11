@@ -1,6 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 import os
-from flask_login import UserMixin
+from flask_login import LoginManager, UserMixin
 from sqlalchemy import ForeignKey
 
 
@@ -71,8 +71,18 @@ def connect_to_db(app):
     password = os.environ.get('PASSWORD')
     app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://addis:suuwhoop@localhost:5432/database'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    
     db.app = app
     db.init_app(app)
+
+    login_manager = LoginManager()
+    login_manager.login_view = 'login'
+    login_manager.init_app(app)
+
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User
+
 
 
 if __name__ == "__main__":
