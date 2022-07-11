@@ -27,6 +27,14 @@ def home():
 def list_info():
     return render_template('info.html')
 
+@app.route('/resources')
+def resources():
+    return render_template('resources.html')
+
+@app.route('/support_group')
+def sup_group():
+    return render_template('support_group.html')
+
 
 if __name__ == "__main__":
 
