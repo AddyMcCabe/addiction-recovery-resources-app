@@ -17,9 +17,9 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
     password = db.Column(db.String(500))
-    information = db.Relationship("Info")
-    resources = db.Relationship("Resource")
-    support_groups = db.Relationship("Group")
+    information = db.relationship("Info")
+    resources = db.relationship("Resource")
+    support_groups = db.relationship("Group")
 
 
 class Info(db.Model):
@@ -69,7 +69,7 @@ def connect_to_db(app):
 
     
     password = os.environ.get('PASSWORD')
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://addis:{password}@localhost:5432/'
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://addis:suuwhoop@localhost:5432/database'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.app = app
     db.init_app(app)
