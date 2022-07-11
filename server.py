@@ -2,7 +2,7 @@ from jinja2 import StrictUndefined
 
 from flask import Flask, render_template, url_for, redirect, request
 from flask_debugtoolbar import DebugToolbarExtension
-
+from werkzeug.security import generate_password_hash, check_password_hash
 from model import connect_to_db, db
 
 

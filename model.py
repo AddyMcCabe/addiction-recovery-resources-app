@@ -1,5 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 import os
+from flask_login import UserMixin
+from sqlalchemy import ForeignKey
 
 
 db = SQLAlchemy()
@@ -8,16 +10,16 @@ db = SQLAlchemy()
 #########################  MODELS  ###################################
 ######################################################################
  
-class User(db.Model):
+class User(db.Model, UserMixin):
 
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
     password = db.Column(db.String(500))
-
-    def __init__(self, name):
-        self.name = name
+    information = db.Relationship("Info")
+    resources = db.Relationship("Resource")
+    support_groups = db.Relationship("Group")
 
 
 class Info(db.Model):
@@ -27,6 +29,27 @@ class Info(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100))
     link = db.Column(db.String(500))
+    user_id = db.Column(db.Integer, ForeignKey("users.id"))
+
+class Resource(db.Model):
+
+    __tablename__ = 'resources'
+
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100))
+    link = db.Column(db.String(500))
+    user_id = db.Column(db.Integer, ForeignKey("users.id"))
+
+class Group(db.Model):
+
+    __tablename__ = 'support_groups'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    link = db.Column(db.String(500))
+    user_id = db.Column(db.Integer, ForeignKey("users.id"))
+
+
 
 
 
