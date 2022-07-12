@@ -68,6 +68,12 @@ def register_post():
     db.session.commit()
     return redirect(url_for('login'))
 
+@app.route('/logout', methods=['GET', 'POST'])
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
+
 @app.route('/info')
 @login_required
 def list_info():
@@ -95,6 +101,6 @@ if __name__ == "__main__":
     
 
     
-    DebugToolbarExtension(app)
+    # DebugToolbarExtension(app)
 
     app.run(port=5000, host='0.0.0.0')
