@@ -1,9 +1,9 @@
 from jinja2 import StrictUndefined
 
-from flask import Flask, render_template, url_for, redirect, request
+from flask import Flask, render_template, url_for, redirect, request, flash
 from flask_debugtoolbar import DebugToolbarExtension
 from werkzeug.security import generate_password_hash, check_password_hash
-from model import connect_to_db, db
+from model import connect_to_db, db, User
 from forms import LoginForm, RegisterForm
 
 
@@ -30,10 +30,24 @@ def login():
     form = LoginForm()
     return render_template('login.html', form=form)
 
+# @app.route('/login', methods=['POST'])
+# def login_post():
+
 @app.route('/register')
 def register():
     form = RegisterForm()
     return render_template('register.html', form=form)
+
+@app.route('/register', methods=['POST'])
+def register_post():
+    username = request.form.get('username')
+    password = request.form.get('password')
+
+    user = User.query.filter_by(username=username).first()
+
+    if user:
+        flash('Username already exists')
+        return redirect(url_for('login'))
 
 @app.route('/info')
 def list_info():
