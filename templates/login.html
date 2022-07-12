@@ -1,6 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
-    <form method="POST" action="/login">
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    <div class="notification is-danger">
+        {{messages[0]}} Go to <a href="{{url_for('register')}}">register page</a>
+    </div>
+{% endif %}
+{% endwith %}
+    <form method="POST" action="/">
         {{form.hidden_tag()}}
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">Login</legend>

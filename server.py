@@ -21,25 +21,27 @@ app.jinja_env.undefined = StrictUndefined
 #####################################################################
 
 
-@app.route('/')
+@app.route('/home')
 def home():
-    return render_template('login.html')
+    return render_template('home.html')
 
-@app.route('/login')
+@app.route('/')
 def login():
     form = LoginForm()
     return render_template('login.html', form=form)
 
-@app.route('/login', methods=['POST'])
+@app.route('/', methods=['POST'])
 def login_post():
     name = request.form.get('name')
     password = request.form.get('password')
 
-    user = User.query.filter_by(name=name, password=check_password_hash(password)).first()
+    user = User.query.filter_by(name=name).first()
 
-    if user:
-        return render_template('home.html')
+    if not user and not check_password_hash(user.password, password):
+        flash('Check login details and try again')
+        return redirect(url_for('login'))
 
+    return redirect(url_for('home')) 
 
 @app.route('/register')
 def register():
