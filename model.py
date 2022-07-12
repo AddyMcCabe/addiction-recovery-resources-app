@@ -1,3 +1,4 @@
+from enum import unique
 from flask_sqlalchemy import SQLAlchemy
 import os
 from flask_login import LoginManager, UserMixin

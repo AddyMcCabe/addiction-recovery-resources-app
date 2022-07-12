@@ -1,3 +1,4 @@
+from flask_login import login_required, login_user, login_manager, logout_user
 from jinja2 import StrictUndefined
 
 from flask import Flask, render_template, url_for, redirect, request, flash
@@ -22,6 +23,7 @@ app.jinja_env.undefined = StrictUndefined
 
 
 @app.route('/home')
+@login_required
 def home():
     return render_template('home.html')
 
@@ -37,11 +39,12 @@ def login_post():
 
     user = User.query.filter_by(name=name).first()
 
-    if not user and not check_password_hash(user.password, password):
+    if user and check_password_hash(user.password, password):
+        login_user(user)
+        return redirect(url_for('home')) 
+    else:
         flash('Check login details and try again')
         return redirect(url_for('login'))
-
-    return redirect(url_for('home')) 
 
 @app.route('/register')
 def register():
@@ -66,14 +69,17 @@ def register_post():
     return redirect(url_for('login'))
 
 @app.route('/info')
+@login_required
 def list_info():
     return render_template('info.html')
 
 @app.route('/resources')
+@login_required
 def resources():
     return render_template('resources.html')
 
 @app.route('/support_group')
+@login_required
 def sup_group():
     return render_template('support_group.html')
 
