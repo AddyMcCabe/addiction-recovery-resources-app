@@ -40,14 +40,19 @@ def register():
 
 @app.route('/register', methods=['POST'])
 def register_post():
-    username = request.form.get('username')
+    name = request.form.get('name')
     password = request.form.get('password')
 
-    user = User.query.filter_by(username=username).first()
+    user = User.query.filter_by(name=name).first()
 
     if user:
         flash('Username already exists')
         return redirect(url_for('login'))
+    
+    new_user = User(name=name, password=generate_password_hash(password, method='sha256'))
+
+    db.session.add(new_user)
+    db.session.commit()
 
 @app.route('/info')
 def list_info():
