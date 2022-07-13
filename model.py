@@ -38,6 +38,7 @@ class Resource(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100))
+    description = db.Column(db.String(500))
     link = db.Column(db.String(500))
     user_id = db.Column(db.Integer, ForeignKey("users.id"))
 

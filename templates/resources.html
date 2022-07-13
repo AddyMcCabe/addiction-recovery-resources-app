@@ -3,4 +3,7 @@
 <div class="jumbotron">
     <h1>Resources</h1>
 </div>
+{% for resource in resources %}
+    <li>Name: {{resource.title}} | About: {{resource.description}} | Website: <a href="{{resource.link}}">{{resource.link}}</a></li>
+{% endfor %}
 {% endblock %}

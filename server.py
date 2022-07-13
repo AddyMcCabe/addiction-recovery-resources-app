@@ -4,7 +4,7 @@ from jinja2 import StrictUndefined
 from flask import Flask, render_template, url_for, redirect, request, flash
 from flask_debugtoolbar import DebugToolbarExtension
 from werkzeug.security import generate_password_hash, check_password_hash
-from model import connect_to_db, db, User, Group
+from model import connect_to_db, db, User, Group, Resource
 from forms import LoginForm, RegisterForm
 
 
@@ -82,13 +82,15 @@ def list_info():
 @app.route('/resources')
 @login_required
 def resources():
-    return render_template('resources.html')
+    resources = Resource.query.all()
+    return render_template('resources.html', resources=resources)
 
 @app.route('/support_group')
 @login_required
 def sup_group():
     groups = Group.query.all()
     return render_template('support_group.html', groups=groups)
+
 
 
 if __name__ == "__main__":
