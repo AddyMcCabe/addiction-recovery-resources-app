@@ -3,4 +3,7 @@
 <div class="jumbotron">
     <h1>Support Groups</h1>
 </div>
+{% for group in groups %}
+    <li>Name: {{group.name}} Website: <a href="{{group.link}}">{{group.link}}</a></li>
+{% endfor %}
 {% endblock %}

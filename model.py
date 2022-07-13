@@ -50,6 +50,8 @@ class Group(db.Model):
     link = db.Column(db.String(500))
     user_id = db.Column(db.Integer, ForeignKey("users.id"))
 
+    
+
 
 
 
