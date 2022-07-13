@@ -4,6 +4,6 @@
     <h1>Support Groups</h1>
 </div>
 {% for group in groups %}
-    <li>Name: {{group.name}} - {{group.description}} Website: <a href="{{group.link}}">{{group.link}}</a></li>
+    <li>Name: {{group.name}} | About: {{group.description}} | Website: <a href="{{group.link}}">{{group.link}}</a></li>
 {% endfor %}
 {% endblock %}
