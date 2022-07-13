@@ -47,6 +47,7 @@ class Group(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
+    description = db.Column(db.String(500))
     link = db.Column(db.String(500))
     user_id = db.Column(db.Integer, ForeignKey("users.id"))
 
