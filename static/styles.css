@@ -4,6 +4,15 @@ html {
     padding-top: 500px;
 }
 
+a {
+    color: white;
+}
+
+.btn {
+    color: white;
+    border-color: white;
+}
+
 .login-body {
     background-image: url('/static/images/How-to-help-an-addicted-family-member.jpg');
     background-size: cover;
