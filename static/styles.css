@@ -1,5 +1,14 @@
-body {
-    background-image: url('static/images/hope.jpg');
+html {
+    display: flex;
+    justify-content: center;
+    padding-top: 500px;
+}
+
+.login-body {
+    background-image: url('/static/images/How-to-help-an-addicted-family-member.jpg');
     background-size: cover;
     background-repeat: no-repeat;
+    color: white;
+    display: flex;
+    flex-direction: column;
 }

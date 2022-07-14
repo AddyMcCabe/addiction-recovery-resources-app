@@ -5,7 +5,7 @@ from flask import Flask, render_template, url_for, redirect, request, flash
 from flask_debugtoolbar import DebugToolbarExtension
 from werkzeug.security import generate_password_hash, check_password_hash
 from model import connect_to_db, db, User, Group, Resource
-from forms import LoginForm, RegisterForm
+from forms import LoginForm, RegisterForm, AddResourceForm
 
 
 app = Flask(__name__)
@@ -79,11 +79,31 @@ def logout():
 def list_info():
     return render_template('info.html')
 
-@app.route('/resources')
+@app.route('/resources', methods=['GET'])
 @login_required
 def resources():
+    form = AddResourceForm()
     resources = Resource.query.all()
-    return render_template('resources.html', resources=resources)
+    return render_template('resources.html', resources=resources, form=form)
+
+@app.route('/resources', methods=['POST'])
+@login_required
+def resources_post():
+    form = AddResourceForm()
+    if form.validate_on_submit():
+        title = form.title.data
+        description = form.description.data
+        link = form.link.data
+
+        new_resource = Resource(title=title, description=description, link=link)
+        db.session.add(new_resource)
+        db.session.commit()
+        resources = Resource.query.all()
+       
+        return redirect(url_for('resources'))
+    else:
+         flash('Make sure all entries are valid')
+         return render_template('resources.html', resources=resources, form=form)
 
 @app.route('/support_group')
 @login_required

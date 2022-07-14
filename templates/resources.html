@@ -6,4 +6,25 @@
 {% for resource in resources %}
     <li>Name: {{resource.title}} | About: {{resource.description}} | Website: <a href="{{resource.link}}">{{resource.link}}</a></li>
 {% endfor %}
+<form method="POST" action="/resources">
+    {{form.hidden_tag()}}
+    <fieldset class="form-group">
+        <legend class="border-bottom mb-4">Add Resource</legend>
+        <div class="form-group">
+            {{form.title.label()}}
+            {{form.title}}
+        </div>
+        <div class="form-group">
+            {{form.description.label()}}
+            {{form.description}}
+        </div>
+        <div class="form-group">
+            {{form.link.label()}}
+            {{form.link}}
+        </div>
+        <div class="form-group">
+            {{form.submit(class="btn btn-outline-info")}}
+        </div>
+    </fieldset>
+</form>
 {% endblock %}

@@ -12,5 +12,12 @@ class RegisterForm(FlaskForm):
 class LoginForm(FlaskForm):
 
     name = StringField('Username', validators=[DataRequired(),Length(min=2, max=20)])
-    password = PasswordField('Password', validators=[DataRequired(),])
+    password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
+
+class AddResourceForm(FlaskForm):
+
+    title = StringField('Name', validators=[DataRequired()])
+    description = StringField('About', validators=[DataRequired()])
+    link = StringField('Link', validators=[DataRequired()])
+    submit = SubmitField('Submit')
