@@ -3,6 +3,7 @@
 <div class="jumbotron">
     <h1>Support Groups</h1>
 </div>
+<div class="card-container">
 {% for group in groups %}
 <div class="card" style="width: 18rem;">
     <div class="card-body">
@@ -11,7 +12,8 @@
       <a href="{{group.link}}" class="btn btn-primary">Website</a>
     </div>
   </div>
-{% endfor %}
+  {% endfor %}
+</div>
 <form method="POST" action="/support_group">
     {{form.hidden_tag()}}
     <fieldset class="form-group">

@@ -1,4 +1,28 @@
-#card-container {
+body {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+
+.card-container {
+    display: flex;
+    flex-direction: row;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    justify-content: space-between;
+}
+
+.card {
     display: flex;
     flex-direction: row;
 }
+
+
+.jumbotron {
+    background-image: url('/static/images/mountain4.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: gold;
+    text-shadow: 1px 0 0 black, 0 1px 0 black, -1px 0 0 black, 0 -1px 0 black;
+}
+

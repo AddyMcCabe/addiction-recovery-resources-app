@@ -3,20 +3,21 @@
 <div class="jumbotron">
     <h1>Resources</h1>
 </div>
+<div class="card-container">
 {% for resource in resources %}
-<div class="row">
-    <div class="col-sm-3">
-    <div class="card" style="width: 18rem;">
+    <div class="row">
+        <div class="col-sm-6">
+  <div class="card" style="width: 18rem;">
     <div class="card-body">
       <h5 class="card-title">{{resource.title}}</h5>
       <p class="card-text">{{resource.description}}</p>
       <a href="{{resource.link}}" class="btn btn-primary">Website</a>
     </div>
   </div>
-</div>
-</div>
+  </div>
 </div>
 {% endfor %}
+</div>
 <form method="POST" action="/resources">
     {{form.hidden_tag()}}
     <fieldset class="form-group">
