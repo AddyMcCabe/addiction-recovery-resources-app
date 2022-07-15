@@ -4,7 +4,14 @@
     <h1>Resources</h1>
 </div>
 {% for resource in resources %}
-    <li>Name: {{resource.title}} | About: {{resource.description}} | Website: <a href="{{resource.link}}">{{resource.link}}</a></li>
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">{{resource.title}}</h5>
+      <p class="card-text">{{resource.description}}</p>
+      <a href="#" class="card-link">{{resource.link}}</a>
+    </div>
+  </div>
+    <!-- <li>Name: {{resource.title}} | About: {{resource.description}} | Website: <a href="{{resource.link}}">{{resource.link}}</a></li> -->
 {% endfor %}
 <form method="POST" action="/resources">
     {{form.hidden_tag()}}
