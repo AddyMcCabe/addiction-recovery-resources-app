@@ -6,4 +6,25 @@
 {% for group in groups %}
     <li>Name: {{group.name}} | About: {{group.description}} | Website: <a href="{{group.link}}">{{group.link}}</a></li>
 {% endfor %}
+<form method="POST" action="/support_group">
+    {{form.hidden_tag()}}
+    <fieldset class="form-group">
+        <legend class="border-bottom mb-4">Add Support Group</legend>
+        <div class="form-group">
+            {{form.name.label()}}
+            {{form.name}}
+        </div>
+        <div class="form-group">
+            {{form.description.label()}}
+            {{form.description}}
+        </div>
+        <div class="form-group">
+            {{form.link.label()}}
+            {{form.link}}
+        </div>
+        <div class="form-group">
+            {{form.submit(class="btn btn-outline-info")}}
+        </div>
+    </fieldset>
+</form>
 {% endblock %}

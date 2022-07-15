@@ -21,3 +21,10 @@ class AddResourceForm(FlaskForm):
     description = StringField('About', validators=[DataRequired()])
     link = StringField('Link', validators=[DataRequired()])
     submit = SubmitField('Submit')
+
+class AddGroupForm(FlaskForm):
+
+    name = StringField('Name', validators=[DataRequired()])
+    description = StringField('About', validators=[DataRequired()])
+    link = StringField('Link', validators=[DataRequired()])
+    submit = SubmitField('Submit')

@@ -5,7 +5,7 @@ from flask import Flask, render_template, url_for, redirect, request, flash
 from flask_debugtoolbar import DebugToolbarExtension
 from werkzeug.security import generate_password_hash, check_password_hash
 from model import connect_to_db, db, User, Group, Resource
-from forms import LoginForm, RegisterForm, AddResourceForm
+from forms import LoginForm, RegisterForm, AddResourceForm, AddGroupForm
 
 
 app = Flask(__name__)
@@ -105,12 +105,31 @@ def resources_post():
          flash('Make sure all entries are valid')
          return render_template('resources.html', resources=resources, form=form)
 
-@app.route('/support_group')
+@app.route('/support_group', methods=['GET'])
 @login_required
 def sup_group():
+    form = AddGroupForm()
     groups = Group.query.all()
-    return render_template('support_group.html', groups=groups)
+    return render_template('support_group.html', groups=groups, form=form)
 
+@app.route('/support_group', methods=['POST'])
+@login_required
+def sup_group_post():
+    form = AddGroupForm()
+    if form.validate_on_submit():
+        name = form.name.data
+        description = form.description.data
+        link = form.link.data
+
+        new_group = Group(name=name, description=description, link=link)
+        db.session.add(new_group)
+        db.session.commit()
+        groups = Group.query.all()
+
+        return redirect(url_for('support_group'))
+    else:
+        flash('make sure all entries are valid')
+        return render_template('support_group.html', groups=groups, form=form)
 
 
 if __name__ == "__main__":
