@@ -1,24 +1,4 @@
-html {
+#card-container {
     display: flex;
-    justify-content: center;
-    padding-top: 500px;
+    flex-direction: row;
 }
-
-a {
-    color: white;
-}
-
-.btn {
-    color: white;
-    border-color: white;
-}
-
-.login-body {
-    background-image: url('/static/images/How-to-help-an-addicted-family-member.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    color: white;
-    display: flex;
-    flex-direction: column;
-}
-
