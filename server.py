@@ -2,7 +2,6 @@ from flask_login import login_required, login_user, login_manager, logout_user
 from jinja2 import StrictUndefined
 
 from flask import Flask, render_template, url_for, redirect, request, flash
-from flask_debugtoolbar import DebugToolbarExtension
 from werkzeug.security import generate_password_hash, check_password_hash
 from model import connect_to_db, db, User, Group, Resource
 from forms import LoginForm, RegisterForm, AddResourceForm, AddGroupForm
@@ -143,6 +142,5 @@ if __name__ == "__main__":
     
 
     
-    # DebugToolbarExtension(app)
 
     app.run(port=5000, host='0.0.0.0')
