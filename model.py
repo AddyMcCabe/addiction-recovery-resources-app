@@ -74,7 +74,7 @@ def connect_to_db(app):
 
     
     password = os.environ.get('PASSWORD')
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://addis:suuwhoop@localhost:5432/database'
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     
     db.app = app
