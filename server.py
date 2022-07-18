@@ -5,7 +5,7 @@ from flask import Flask, render_template, url_for, redirect, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from model import connect_to_db, db, User, Group, Resource
 from forms import LoginForm, RegisterForm, AddResourceForm, AddGroupForm
-
+import os
 
 app = Flask(__name__)
 
@@ -133,9 +133,12 @@ def sup_group_post():
 
 if __name__ == "__main__":
 
-    app.debug = True
+    # app.debug = True
     
-    app.jinja_env.auto_reload = app.debug
+    # app.jinja_env.auto_reload = app.debug
+
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     connect_to_db(app)
 
