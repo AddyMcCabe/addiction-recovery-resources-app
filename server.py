@@ -20,9 +20,9 @@ app.jinja_env.undefined = StrictUndefined
 #############  VIEW FUNCTIONS -- HAVE FORMS  ########################
 #####################################################################
 
-@app.before_first_request
-def create_table():
-    db.create_all()
+# @app.before_first_request
+# def create_table():
+#     db.create_all()
 
 @app.route('/home')
 @login_required
