@@ -5,7 +5,7 @@ from flask_login import LoginManager, UserMixin
 from sqlalchemy import ForeignKey
 
 
-db = SQLAlchemy()
+db = SQLAlchemy(app)
 
 ######################################################################
 #########################  MODELS  ###################################
