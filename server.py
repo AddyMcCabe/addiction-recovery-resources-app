@@ -20,6 +20,9 @@ app.jinja_env.undefined = StrictUndefined
 #############  VIEW FUNCTIONS -- HAVE FORMS  ########################
 #####################################################################
 
+@app.before_first_request
+def create_table():
+    db.create_all()
 
 @app.route('/home')
 @login_required
@@ -131,17 +134,17 @@ def sup_group_post():
         return render_template('support_group.html', groups=groups, form=form)
 
 
-# if __name__ == "__main__":
+if __name__ == "__main__":
 
-#     # app.debug = True
+    # app.debug = True
     
-#     # app.jinja_env.auto_reload = app.debug
+    # app.jinja_env.auto_reload = app.debug
 
 
-#     connect_to_db(app)
-
-    
+    connect_to_db(app)
 
     
 
-#     app.run(port=5000, host='0.0.0.0')
+    
+
+    app.run(port=5000, host='0.0.0.0')
