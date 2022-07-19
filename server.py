@@ -131,19 +131,17 @@ def sup_group_post():
         return render_template('support_group.html', groups=groups, form=form)
 
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
 
-    # app.debug = True
+#     # app.debug = True
     
-    # app.jinja_env.auto_reload = app.debug
+#     # app.jinja_env.auto_reload = app.debug
 
-    # app.config['SQLALCHEMY_DATABASE_URI'] =  app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://addis:suuwhoop@localhost:5432/database'
-    # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-    connect_to_db(app)
+#     connect_to_db(app)
 
     
 
     
 
-    app.run(port=5000, host='0.0.0.0')
+#     app.run(port=5000, host='0.0.0.0')
