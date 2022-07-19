@@ -137,14 +137,6 @@ def sup_group_post():
 if __name__ == "__main__":
 
     # app.debug = True
-    
     # app.jinja_env.auto_reload = app.debug
-
-
     connect_to_db(app)
-
-    
-
-    
-
     app.run()
