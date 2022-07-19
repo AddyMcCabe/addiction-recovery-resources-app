@@ -137,8 +137,8 @@ if __name__ == "__main__":
     
     # app.jinja_env.auto_reload = app.debug
 
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    # app.config['SQLALCHEMY_DATABASE_URI'] =  app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://addis:suuwhoop@localhost:5432/database'
+    # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     connect_to_db(app)
 

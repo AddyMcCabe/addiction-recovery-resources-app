@@ -1,2 +1,0 @@
-export PASSWORD='suuwhoop'
-export DATABASE_URI='postgresql://ohyszgvxhawulh:fde89f5eaacc0d31e530599f9a073271737fe7e95e71890926be63da702ef2e7@ec2-3-219-229-143.compute-1.amazonaws.com:5432/d3l05kot95in12'

@@ -55,26 +55,12 @@ class Group(db.Model):
     
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def connect_to_db(app):
     """Connect the database to our Flask app."""
 
     
     password = os.environ.get('PASSWORD')
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('LOCAL_URI')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     
     db.app = app
