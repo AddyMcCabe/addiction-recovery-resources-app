@@ -1,11 +1,9 @@
 from flask_login import login_required, login_user, LoginManager, logout_user
 from jinja2 import StrictUndefined
-
+from model import User, Group, Resource, db, connect_to_db
 from flask import Flask, render_template, url_for, redirect, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
-from model import connect_to_db, db, User, Group, Resource
 from forms import LoginForm, RegisterForm, AddResourceForm, AddGroupForm
-from flask_sqlalchemy import SQLAlchemy
 import os
 
 app = Flask(__name__)
@@ -16,33 +14,11 @@ app.config['SECRET_KEY'] = 'dhsdskowlwjj3744394ghheiso45852el'
 
 app.jinja_env.undefined = StrictUndefined
 
-db = SQLAlchemy()
+
 #####################################################################
 #############  VIEW FUNCTIONS -- HAVE FORMS  ########################
 #####################################################################
 
-# @app.before_first_request
-# def create_table():
-#     db.create_all()
-
-def connect_to_db(app):
-    """Connect the database to our Flask app."""
-
-    
-    password = os.environ.get('PASSWORD')
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    
-    db.app = app
-    db.init_app(app)
-
-    login_manager = LoginManager()
-    login_manager.login_view = 'login'
-    login_manager.init_app(app)
-
-    @login_manager.user_loader
-    def load_user(user_id):
-        return User.query.get(int(user_id))
 
 @app.route('/home')
 @login_required
