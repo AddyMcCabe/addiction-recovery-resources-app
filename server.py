@@ -4,7 +4,8 @@ from model import User, Group, Resource, db, connect_to_db
 from flask import Flask, render_template, url_for, redirect, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from forms import LoginForm, RegisterForm, AddResourceForm, AddGroupForm
-import os
+from flask_migrate import Migrate
+
 
 app = Flask(__name__)
 
@@ -14,7 +15,7 @@ app.config['SECRET_KEY'] = 'dhsdskowlwjj3744394ghheiso45852el'
 
 app.jinja_env.undefined = StrictUndefined
 
-
+Migrate(app, db)
 #####################################################################
 #############  VIEW FUNCTIONS -- HAVE FORMS  ########################
 #####################################################################
