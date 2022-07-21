@@ -10,6 +10,7 @@
       <h5 class="card-title">{{group.name}}</h5>
       <p class="card-text">{{group.description}}</p>
       <a href="{{group.link}}" class="btn btn-primary">Website</a>
+      <a href="{{url_for('delete', id=group.id)}}" class="btn btn-primary">delete</a>
     </div>
   </div>
   {% endfor %}

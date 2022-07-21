@@ -131,18 +131,33 @@ def sup_group_post():
         flash('make sure all entries are valid')
         return render_template('support_group.html', groups=groups, form=form)
 
-@app.route('/delete_resource/<int:id>')
+@app.route('/delete/<int:id>')
 def delete(id):
-    resource_to_delete = Resource.query.get_or_404(id)
+    group_to_delete = Group.query.get_or_404(id)
     
+    try:
+        db.session.delete(group_to_delete)
+        db.session.commit()
+
+        return redirect(url_for('support_group'))
+
+    except:
+           return "there was a problem"
+
+@app.route('/delete_resource/<int:id>')        
+def delete_resource(id):
+    resource_to_delete = Resource.query.get_or_404(id)
+
     try:
         db.session.delete(resource_to_delete)
         db.session.commit()
 
         return redirect(url_for('resources'))
-
+    
     except:
            return "there was a problem"
+
+
 
 
 
