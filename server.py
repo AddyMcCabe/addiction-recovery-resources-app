@@ -107,7 +107,7 @@ def resources_post():
 
 @app.route('/support_group', methods=['GET'])
 @login_required
-def sup_group():
+def support_group():
     form = AddGroupForm()
     groups = Group.query.all()
     return render_template('support_group.html', groups=groups, form=form)
@@ -130,6 +130,20 @@ def sup_group_post():
     else:
         flash('make sure all entries are valid')
         return render_template('support_group.html', groups=groups, form=form)
+
+@app.route('/delete_resource/<int:id>')
+def delete(id):
+    resource_to_delete = Resource.query.get_or_404(id)
+    
+    try:
+        db.session.delete(resource_to_delete)
+        db.session.commit()
+
+        return redirect(url_for('resources'))
+
+    except:
+           return "there was a problem"
+
 
 
 if __name__ == "__main__":
