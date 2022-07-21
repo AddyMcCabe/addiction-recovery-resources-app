@@ -7,6 +7,7 @@ from forms import LoginForm, RegisterForm, AddResourceForm, AddGroupForm
 from flask_migrate import Migrate
 
 
+
 app = Flask(__name__)
 
 
@@ -15,7 +16,7 @@ app.config['SECRET_KEY'] = 'dhsdskowlwjj3744394ghheiso45852el'
 
 app.jinja_env.undefined = StrictUndefined
 
-Migrate(app, db)
+# Migrate(app, db)
 #####################################################################
 #############  VIEW FUNCTIONS -- HAVE FORMS  ########################
 #####################################################################
