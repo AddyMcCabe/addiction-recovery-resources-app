@@ -1,11 +1,12 @@
-from flask_login import login_required, login_user, LoginManager, logout_user
+from flask_login import login_required, login_user, LoginManager, logout_user, LoginManager, UserMixin
 from jinja2 import StrictUndefined
-from src.model import User, Group, Resource
+# from src.model import User, Group, Resource
 from flask import Flask, render_template, url_for, redirect, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from src.forms import LoginForm, RegisterForm, AddResourceForm, AddGroupForm
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from sqlalchemy import ForeignKey
 import os
 
 
@@ -24,6 +25,52 @@ app.jinja_env.undefined = StrictUndefined
 
 db = SQLAlchemy(app)
 Migrate(app, db)
+
+#####################################################################
+######################### MODELS ####################################
+#####################################################################
+
+class User(db.Model, UserMixin):
+
+    __tablename__ = 'users'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    password = db.Column(db.String(500))
+    information = db.relationship("Info")
+    resources = db.relationship("Resource")
+    support_groups = db.relationship("Group")
+
+
+class Info(db.Model):
+
+    __tablename__ = 'information'
+
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100))
+    link = db.Column(db.String(500))
+    user_id = db.Column(db.Integer, ForeignKey("users.id"))
+
+class Resource(db.Model):
+
+    __tablename__ = 'resources'
+
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100))
+    description = db.Column(db.String(500))
+    link = db.Column(db.String(500))
+    user_id = db.Column(db.Integer, ForeignKey("users.id"))
+
+class Group(db.Model):
+
+    __tablename__ = 'support_groups'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    description = db.Column(db.String(500))
+    link = db.Column(db.String(500))
+    user_id = db.Column(db.Integer, ForeignKey("users.id"))
+
 #####################################################################
 #############  VIEW FUNCTIONS -- HAVE FORMS  ########################
 #####################################################################
@@ -143,6 +190,7 @@ def sup_group_post():
         return render_template('support_group.html', groups=groups, form=form)
 
 @app.route('/delete/<int:id>')
+@login_required
 def delete(id):
     group_to_delete = Group.query.get_or_404(id)
     
@@ -155,7 +203,8 @@ def delete(id):
     except:
            return "there was a problem"
 
-@app.route('/delete_resource/<int:id>')        
+@app.route('/delete_resource/<int:id>') 
+@login_required      
 def delete_resource(id):
     resource_to_delete = Resource.query.get_or_404(id)
 

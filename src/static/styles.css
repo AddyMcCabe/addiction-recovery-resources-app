@@ -20,7 +20,7 @@ body {
 
 
 .jumbotron {
-    background-image: url('/src/images/mountain4.jpg');
+    background-image: url('/static/images/mountain4.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     color: gold;
