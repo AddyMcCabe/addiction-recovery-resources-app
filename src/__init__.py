@@ -1,9 +1,9 @@
 from flask_login import login_required, login_user, LoginManager, logout_user
 from jinja2 import StrictUndefined
-from model import User, Group, Resource, db, connect_to_db
+from src.model import User, Group, Resource
 from flask import Flask, render_template, url_for, redirect, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
-from forms import LoginForm, RegisterForm, AddResourceForm, AddGroupForm
+from src.forms import LoginForm, RegisterForm, AddResourceForm, AddGroupForm
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 import os
@@ -27,6 +27,10 @@ Migrate(app, db)
 #####################################################################
 #############  VIEW FUNCTIONS -- HAVE FORMS  ########################
 #####################################################################
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 
 @app.route('/home')

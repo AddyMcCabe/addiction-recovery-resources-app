@@ -14,7 +14,7 @@ a {
 }
 
 .login-body {
-    background-image: url('/static/images/How-to-help-an-addicted-family-member.jpg');
+    background-image: url('/src/images/How-to-help-an-addicted-family-member.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     color: white;
