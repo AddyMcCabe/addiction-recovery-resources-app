@@ -4,19 +4,26 @@ from model import User, Group, Resource, db, connect_to_db
 from flask import Flask, render_template, url_for, redirect, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from forms import LoginForm, RegisterForm, AddResourceForm, AddGroupForm
+from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+import os
 
 
 
 app = Flask(__name__)
-
+login_manager = LoginManager()
+login_manager.login_view = 'login'
+login_manager.init_app(app)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 app.config['SECRET_KEY'] = 'dhsdskowlwjj3744394ghheiso45852el'
 
 
 app.jinja_env.undefined = StrictUndefined
 
-# Migrate(app, db)
+db = SQLAlchemy(app)
+Migrate(app, db)
 #####################################################################
 #############  VIEW FUNCTIONS -- HAVE FORMS  ########################
 #####################################################################
@@ -161,9 +168,9 @@ def delete_resource(id):
 
 
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
 
-    # app.debug = True
-    # app.jinja_env.auto_reload = app.debug
-    connect_to_db(app)
-    app.run()
+#     app.debug = True
+#     app.jinja_env.auto_reload = app.debug
+  
+#     app.run()
