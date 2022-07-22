@@ -1,6 +1,5 @@
 from flask_login import login_required, login_user, LoginManager, logout_user, LoginManager, UserMixin
 from jinja2 import StrictUndefined
-# from src.model import User, Group, Resource
 from flask import Flask, render_template, url_for, redirect, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from src.forms import LoginForm, RegisterForm, AddResourceForm, AddGroupForm
@@ -157,7 +156,7 @@ def resources_post():
         db.session.add(new_resource)
         db.session.commit()
         resources = Resource.query.all()
-       
+        
         return redirect(url_for('resources'))
     else:
          flash('Make sure all entries are valid')
@@ -207,6 +206,7 @@ def delete(id):
 @login_required      
 def delete_resource(id):
     resource_to_delete = Resource.query.get_or_404(id)
+    
 
     try:
         db.session.delete(resource_to_delete)
