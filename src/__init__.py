@@ -182,7 +182,8 @@ def sup_group_post():
         db.session.add(new_group)
         db.session.commit()
         groups = Group.query.all()
-
+        
+        flash('group added')
         return redirect(url_for('support_group'))
     else:
         flash('make sure all entries are valid')
@@ -196,7 +197,7 @@ def delete(id):
     try:
         db.session.delete(group_to_delete)
         db.session.commit()
-
+        flash('group deleted')
         return redirect(url_for('support_group'))
 
     except:
