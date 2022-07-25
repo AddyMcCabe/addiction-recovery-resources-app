@@ -1,4 +1,5 @@
-from flask_login import login_required, login_user, LoginManager, logout_user, LoginManager, UserMixin
+from logging import error
+from flask_login import login_required, login_user, LoginManager, logout_user, LoginManager, UserMixin, current_user
 from jinja2 import StrictUndefined
 from flask import Flask, render_template, url_for, redirect, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -34,11 +35,11 @@ class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100))
+    name = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(500))
     information = db.relationship("Info")
-    resources = db.relationship("Resource")
-    support_groups = db.relationship("Group")
+    resources = db.relationship("Resource", backref='resource_poster')
+    support_groups = db.relationship("Group", backref='group_poster')
 
 
 class Info(db.Model):
@@ -151,8 +152,10 @@ def resources_post():
         title = form.title.data
         description = form.description.data
         link = form.link.data
+        
 
-        new_resource = Resource(title=title, description=description, link=link)
+
+        new_resource = Resource(title=title, description=description, link=link, user_id=current_user.id)
         db.session.add(new_resource)
         db.session.commit()
         resources = Resource.query.all()
@@ -178,7 +181,7 @@ def sup_group_post():
         description = form.description.data
         link = form.link.data
 
-        new_group = Group(name=name, description=description, link=link)
+        new_group = Group(name=name, description=description, link=link, user_id=current_user.id)
         db.session.add(new_group)
         db.session.commit()
         groups = Group.query.all()
@@ -193,31 +196,41 @@ def sup_group_post():
 @login_required
 def delete(id):
     group_to_delete = Group.query.get_or_404(id)
+    id = current_user.id
     
-    try:
-        db.session.delete(group_to_delete)
-        db.session.commit()
-        flash('group deleted')
-        return redirect(url_for('support_group'))
+    if id == group_to_delete.user_id:
 
-    except:
-           return "there was a problem"
+        try:
+            db.session.delete(group_to_delete)
+            db.session.commit()
+            return redirect(url_for('support_group'))
+
+        except:
+            return "there was a problem"
+    else:
+        flash('This is not your post')
+        return redirect(url_for('support_group'))
 
 @app.route('/delete_resource/<int:id>') 
 @login_required      
 def delete_resource(id):
     resource_to_delete = Resource.query.get_or_404(id)
+    id = current_user.id
     
+    if id == resource_to_delete.user_id:
 
-    try:
-        db.session.delete(resource_to_delete)
-        db.session.commit()
+        try:
+            db.session.delete(resource_to_delete)
+            db.session.commit()
+            return redirect(url_for('resources'))
 
+            
+        except:
+            return "there was a problem"
+
+    else:
+        flash('error')
         return redirect(url_for('resources'))
-    
-    except:
-           return "there was a problem"
-
 
 
 
