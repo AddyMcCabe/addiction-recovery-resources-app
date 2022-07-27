@@ -5,6 +5,8 @@
 </div>
 <div class="card-container">
 {% for group in groups %}
+<div class="row">
+    <div class="col-sm-6">
 <div class="card" style="width: 18rem;">
     <div class="card-body">
       <h5 class="card-title">{{group.name}}</h5>
@@ -13,6 +15,8 @@
       <a href="{{url_for('delete', id=group.id)}}" class="btn btn-primary">delete</a>
     </div>
   </div>
+</div>
+</div>
   {% endfor %}
 </div>
 <form method="POST" action="/support_group">
